@@ -7,6 +7,7 @@ services:
        dockerfile: ./docker/Dockerfile
     environment:
       FLOW_CONTEXT: 'Development/Docker'
+      #FLOW_CONTEXT: 'Production'
       COMPOSER_CACHE_DIR: '/composer_cache'
       # DB connection
       DB_NEOS_HOST: 'db'
@@ -19,14 +20,19 @@ services:
       ADMIN_PASSWORD: 'password'
     volumes:
       - ./composer.json:/app/composer.json:cached
-      # Explicitly set up Composer cache for faster fetching of packages
-      - ./tmp/composer_cache:/composer_cache:cached
+      - ./composer.lock:/app/composer.lock:cached
       # Code
       - ./DistributionPackages:/app/DistributionPackages:cached
-      - ./Packages:/app/Packages:cached
+      - ./Packages:/app/Packages:delegated
       - ./Configuration:/app/Configuration:cached
+      # Logs
+      - ./Data/Persistent:/app/Data/Persistent/:delegated
+      # Media for persistence
+      - ./Data/Logs:/app/Data/Logs/:delegated
+      - ./setup-neos.sh:/app/setup-neos.sh
     ports:
       - '8081:8081'
+      - '8082:8082'
     networks:
       - neosdevelopment
     depends_on:
@@ -45,6 +51,22 @@ services:
       - '13306:3306'
     networks:
       - neosdevelopment
+
+  adminer:
+    image: wodby/adminer:4.7
+    depends_on:
+      - "db"
+    environment:
+      ADMINER_DEFAULT_DB_DRIVER: mysql
+      ADMINER_DEFAULT_DB_HOST: db
+      ADMINER_DEFAULT_DB_NAME: neos
+      ADMINER_DESIGN: nette
+      ADMINER_PLUGINS: tables-filter tinymce
+    ports:
+      - 7000:9000
+    networks:
+      - neosdevelopment
+
 volumes:
   db:
 

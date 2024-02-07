@@ -1,4 +1,4 @@
-FROM php:8.1-cli
+FROM php:8.2-cli
 
 RUN apt-get update \
     # install GraphicsMagick
@@ -28,11 +28,9 @@ RUN mkdir -p /app/DistributionPackages
 RUN mkdir -p /app/Configuration/Development
 RUN mkdir -p /.composer
 
-RUN chown -R 1000:1000 entrypoint.sh /app /.composer
 RUN chmod +x entrypoint.sh
-
-USER 1000:1000
 
 WORKDIR /app
 
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT [ "/entrypoint.sh" ]

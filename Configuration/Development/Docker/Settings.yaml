@@ -15,10 +15,10 @@ Neos:
       # https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
       backendOptions:
         charset: 'utf8mb4'
-        host: '%env:DB_NEOS_HOST%'
-        dbname: '%env:DB_NEOS_DATABASE%'       # adjust to your database name
-        user: '%env:DB_NEOS_USER%'             # adjust to your database user
-        password: '%env:DB_NEOS_PASSWORD%'         # adjust to your database password
+        host: 'db'
+        dbname: 'neos'       # adjust to your database name
+        user: 'neos'             # adjust to your database user
+        password: 'neos'         # adjust to your database password
 
        # if you want to log executed SQL queries, enable the next 2 lines
 #      doctrine:

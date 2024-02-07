@@ -27,7 +27,6 @@
   "require": {
     "neos/neos-development-collection": "9.0.x-dev",
     "neos/flow-development-collection": "9.0.x-dev",
-    "neos/demo": "@dev",
     "neos/neos-ui": "9.0.x-dev",
     "neos/neos-ui-compiled": "@dev",
     "neos/fusion-form": "@dev",
@@ -37,7 +36,8 @@
     "neos/twitter-bootstrap": "@dev",
     "neos/form": "@dev",
     "neos/neos-setup": "^4.0.x-dev",
-    "neos/setup": "@dev"
+    "neos/setup": "@dev",
+    "runa/homepage": "@dev"
   },
   "repositories": {
     "distributionPackages": {
